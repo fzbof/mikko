@@ -1,3 +1,0 @@
-payroll_homepage:
-    path:     /
-    defaults: { _controller: PayrollBundle:Default:index }

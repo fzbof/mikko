@@ -1,4 +1,0 @@
-payroll:
-    resource: "@PayrollBundle/Resources/config/routing.yml"
-    prefix:   /
-
