@@ -1,4 +1,8 @@
 services:
-#    payroll.example:
-#        class: PayrollBundle\Example
-#        arguments: ["@service_id", "plain_value", "%parameter%"]
+    payroll.service.calendar:
+        class: PayrollBundle\Service\CalendarService
+    payroll.service.payday:
+        class: PayrollBundle\Service\PaydayService
+    payroll.service.payroll:
+        class: PayrollBundle\Service\PayrollService
+        arguments: ['@payroll.service.calendar', '@payroll.service.payday']
