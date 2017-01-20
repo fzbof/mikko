@@ -2,6 +2,11 @@
 
 namespace PayrollBundle\Service;
 
+/**
+ * Interface CalendarServiceInterface
+ *
+ * @package PayrollBundle\Service
+ */
 interface CalendarServiceInterface
 {
     /**

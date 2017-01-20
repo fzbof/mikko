@@ -10,7 +10,7 @@ namespace PayrollBundle\Service;
 class PaydayService implements PaydayServiceInterface
 {
     /**
-     * @var int[]
+     * @var int[] Numbers of days considered 'weekend' (sunday = 0)
      */
     private $weekendDays = [0, 6];
 

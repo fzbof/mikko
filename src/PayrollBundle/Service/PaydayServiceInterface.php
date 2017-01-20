@@ -2,6 +2,11 @@
 
 namespace PayrollBundle\Service;
 
+/**
+ * Interface PaydayServiceInterface
+ *
+ * @package PayrollBundle\Service
+ */
 interface PaydayServiceInterface
 {
     /**

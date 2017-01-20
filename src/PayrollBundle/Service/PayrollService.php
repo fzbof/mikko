@@ -2,12 +2,17 @@
 
 namespace PayrollBundle\Service;
 
+/**
+ * Class PayrollService
+ *
+ * @package PayrollBundle\Service
+ */
 class PayrollService
 {
     /**
      * @var string
      */
-    private $csvFormat = "Y-m-d";
+    private $dateOutputFormat = "Y-m-d";
 
     /**
      * @var CalendarServiceInterface
@@ -28,15 +33,16 @@ class PayrollService
     }
 
     /**
-     * @param \DateTime $referenceDay
-     * @param           $filename
+     * @param \DateTime $startDate    Day for which to generate the payroll
+     *                                calendar
+     * @param string    $filename     Location to write the payroll calendar to
      */
-    public function createPayrollCalendar(\DateTime $referenceDay, $filename)
+    public function createPayrollCalendar(\DateTime $startDate, $filename)
     {
         $handle = fopen($filename, 'w');
 
         $remainingMonths = $this->calendarService->getRemainingMonths(
-          $referenceDay
+          $startDate
         );
 
         foreach ($remainingMonths as list($year, $month)) {
@@ -67,8 +73,8 @@ class PayrollService
           $handle,
           [
             $month,
-            $salaryDay->format($this->csvFormat),
-            $bonusDay->format($this->csvFormat),
+            $salaryDay->format($this->dateOutputFormat),
+            $bonusDay->format($this->dateOutputFormat),
           ]
         );
     }
