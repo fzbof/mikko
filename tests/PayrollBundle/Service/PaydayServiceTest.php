@@ -2,6 +2,7 @@
 
 namespace tests\PayrollBundle\Service;
 
+use PayrollBundle\Models\PayrollMonth;
 use PayrollBundle\Service\PaydayService;
 
 class PaydayServiceTest extends \PHPUnit_Framework_TestCase
@@ -15,7 +16,9 @@ class PaydayServiceTest extends \PHPUnit_Framework_TestCase
     public function testSalaryPaydayFallsOnLastDayOfMonth($year, $month)
     {
         $paydayService = new PaydayService();
-        $salaryPayday  = $paydayService->calculateSalaryPayday($year, $month);
+        $salaryPayday  = $paydayService->calculateSalaryPayday(
+          new PayrollMonth($year, $month)
+        );
 
         $referenceDay = new \DateTime();
         $referenceDay->setDate($year, $month, 1);
@@ -37,7 +40,9 @@ class PaydayServiceTest extends \PHPUnit_Framework_TestCase
       $month
     ) {
         $paydayService = new PaydayService();
-        $salaryPayday  = $paydayService->calculateSalaryPayday($year, $month);
+        $salaryPayday  = $paydayService->calculateSalaryPayday(
+          new PayrollMonth($year, $month)
+        );
 
         $referenceDay = new \DateTime();
         $referenceDay->setDate($year, $month, 1);
@@ -64,7 +69,9 @@ class PaydayServiceTest extends \PHPUnit_Framework_TestCase
     public function testBonusPaydayFallsOnNextFifteenth($year, $month)
     {
         $paydayService = new PaydayService();
-        $bonusPayday   = $paydayService->calculateBonusPayday($year, $month);
+        $bonusPayday   = $paydayService->calculateBonusPayday(
+          new PayrollMonth($year, $month)
+        );
 
         $referenceDay = new \DateTime();
         $referenceDay->setDate($year, $month + 1, 15);
@@ -86,7 +93,9 @@ class PaydayServiceTest extends \PHPUnit_Framework_TestCase
       $month
     ) {
         $paydayService = new PaydayService();
-        $bonusPayday   = $paydayService->calculateBonusPayday($year, $month);
+        $bonusPayday   = $paydayService->calculateBonusPayday(
+          new PayrollMonth($year, $month)
+        );
 
         $referenceDay = new \DateTime();
         $referenceDay->setDate($year, $month + 1, 15);

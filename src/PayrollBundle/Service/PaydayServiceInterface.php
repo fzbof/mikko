@@ -2,6 +2,8 @@
 
 namespace PayrollBundle\Service;
 
+use PayrollBundle\Models\PayrollMonth;
+
 /**
  * Interface PaydayServiceInterface
  *
@@ -12,20 +14,18 @@ interface PaydayServiceInterface
     /**
      * Calculates the pay day of the salary for a given year and month
      *
-     * @param int $year  Year in YYYY format
-     * @param int $month Month in MM format
+     * @param PayrollMonth $payrollMonth
      *
      * @return \DateTime
      */
-    public function calculateSalaryPayday(int $year, int $month);
+    public function calculateSalaryPayday(PayrollMonth $payrollMonth);
 
     /**
      * Calculates the pay day of the bonus for a given year and month
      *
-     * @param int $year  Year in YYYY format
-     * @param int $month Month in MM format
+     * @param PayrollMonth $payrollMonth
      *
      * @return \DateTime
      */
-    public function calculateBonusPayday(int $year, int $month);
+    public function calculateBonusPayday(PayrollMonth $payrollMonth);
 }

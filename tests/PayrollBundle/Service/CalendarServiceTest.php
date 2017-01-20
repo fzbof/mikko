@@ -2,6 +2,7 @@
 
 namespace tests\PayrollBundle\Service;
 
+use PayrollBundle\Models\PayrollMonth;
 use PayrollBundle\Service\CalendarService;
 
 class CalendarServiceTest extends \PHPUnit_Framework_TestCase
@@ -21,7 +22,12 @@ class CalendarServiceTest extends \PHPUnit_Framework_TestCase
           13 - $referenceDay->format('m'),
           count($remainingMonths)
         );
-        foreach ($remainingMonths as list($year, $month)) {
+
+        /** @var PayrollMonth $payrollMonth */
+        foreach ($remainingMonths as $payrollMonth) {
+            $year  = $payrollMonth->getYear();
+            $month = $payrollMonth->getMonth();
+
             $this->assertEquals($referenceDay->format('Y'), $year);
             $this->assertGreaterThanOrEqual($referenceDay->format('m'), $month);
             $this->assertLessThanOrEqual(12, $month);

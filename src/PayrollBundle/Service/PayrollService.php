@@ -2,6 +2,8 @@
 
 namespace PayrollBundle\Service;
 
+use PayrollBundle\Models\PayrollMonth;
+
 /**
  * Class PayrollService
  *
@@ -12,7 +14,7 @@ class PayrollService
     /**
      * @var string
      */
-    private $dateOutputFormat = "Y-m-d";
+    private $dateOutputFormat = 'Y-m-d';
 
     /**
      * @var CalendarServiceInterface
@@ -45,34 +47,27 @@ class PayrollService
           $startDate
         );
 
-        foreach ($remainingMonths as list($year, $month)) {
-            $this->writePaydayLine($handle, $year, $month);
+        foreach ($remainingMonths as $payrollMonth) {
+            $this->writePaydayLine($handle, $payrollMonth);
         }
 
         fclose($handle);
     }
 
     /**
-     * @param resource $handle
-     * @param int      $year
-     * @param int      $month
+     * @param                                    $handle
+     * @param \PayrollBundle\Models\PayrollMonth $payrollMonth
      */
-    private function writePaydayLine($handle, $year, $month)
+    private function writePaydayLine($handle, PayrollMonth $payrollMonth)
     {
-        $salaryDay = $this->paydayService->calculateSalaryPayday(
-          $year,
-          $month
-        );
+        $salaryDay = $this->paydayService->calculateSalaryPayday($payrollMonth);
 
-        $bonusDay = $this->paydayService->calculateBonusPayday(
-          $year,
-          $month
-        );
+        $bonusDay = $this->paydayService->calculateBonusPayday($payrollMonth);
 
         fputcsv(
           $handle,
           [
-            $month,
+            $payrollMonth->getMonth(),
             $salaryDay->format($this->dateOutputFormat),
             $bonusDay->format($this->dateOutputFormat),
           ]

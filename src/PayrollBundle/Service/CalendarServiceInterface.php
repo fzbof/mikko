@@ -2,6 +2,8 @@
 
 namespace PayrollBundle\Service;
 
+use PayrollBundle\Models\PayrollMonth;
+
 /**
  * Interface CalendarServiceInterface
  *
@@ -15,7 +17,7 @@ interface CalendarServiceInterface
      *
      * @param \DateTime $startDate
      *
-     * @return array
+     * @return PayrollMonth[]
      */
     public function getRemainingMonths(\DateTime $startDate);
 }

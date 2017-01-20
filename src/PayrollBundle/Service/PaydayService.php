@@ -2,6 +2,8 @@
 
 namespace PayrollBundle\Service;
 
+use PayrollBundle\Models\PayrollMonth;
+
 /**
  * Class PaydayService
  *
@@ -28,13 +30,17 @@ class PaydayService implements PaydayServiceInterface
     /**
      * @inheritdoc
      */
-    public function calculateSalaryPayday(int $year, int $month)
+    public function calculateSalaryPayday(PayrollMonth $payrollMonth)
     {
         $payDay = new \DateTime();
-        $payDay->setDate($year, $month + 1, 0);
+        $payDay->setDate(
+          $payrollMonth->getYear(),
+          $payrollMonth->getMonth() + 1,
+          0
+        );
 
-        while (in_array($payDay->format("w"), $this->weekendDays)) {
-            $payDay->sub(new \DateInterval("P1D"));
+        while (in_array($payDay->format('w'), $this->weekendDays)) {
+            $payDay->sub(new \DateInterval('P1D'));
         }
 
         return $payDay;
@@ -43,17 +49,21 @@ class PaydayService implements PaydayServiceInterface
     /**
      * @inheritdoc
      */
-    public function calculateBonusPayday(int $year, int $month)
+    public function calculateBonusPayday(PayrollMonth $payrollMonth)
     {
         $payDay = new \DateTime();
-        $payDay->setDate($year, $month + 1, $this->bonusDay);
+        $payDay->setDate(
+          $payrollMonth->getYear(),
+          $payrollMonth->getMonth() + 1,
+          $this->bonusDay
+        );
 
-        $dayOfWeek = (int)$payDay->format("w");
+        $dayOfWeek = (int)$payDay->format('w');
         if (in_array($dayOfWeek, $this->weekendDays)) {
             $payDay->add(
               new \DateInterval(
                 sprintf(
-                  "P%dD",
+                  'P%dD',
                   (7 - $dayOfWeek + $this->weekendBonusWeekday) % 7
                 )
               )
