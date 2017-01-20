@@ -7,7 +7,7 @@ namespace PayrollBundle\Service;
  *
  * @package PayrollBundle\Service
  */
-class CalenderService implements CalendarServiceInterface
+class CalendarService implements CalendarServiceInterface
 {
     /**
      * @inheritdoc

@@ -2,9 +2,9 @@
 
 namespace tests\PayrollBundle\Service;
 
-use PayrollBundle\Service\CalenderService;
+use PayrollBundle\Service\CalendarService;
 
-class CalenderServiceTest extends \PHPUnit_Framework_TestCase
+class CalendarServiceTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @dataProvider getTestDays
@@ -13,7 +13,7 @@ class CalenderServiceTest extends \PHPUnit_Framework_TestCase
      */
     public function testAllRemainingMonthsAreAvailable(\DateTime $referenceDay)
     {
-        $calendarService = new CalenderService();
+        $calendarService = new CalendarService();
 
         $remainingMonths = $calendarService->getRemainingMonths($referenceDay);
 
