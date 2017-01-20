@@ -7,7 +7,7 @@ namespace PayrollBundle\Service;
  *
  * @package PayrollBundle\Service
  */
-class PaydayService
+class PaydayService implements PaydayServiceInterface
 {
     /**
      * @var int[]
@@ -26,12 +26,7 @@ class PaydayService
     private $weekendBonusWeekday = 3;
 
     /**
-     * Calculates the pay day of the salary for a given year and month
-     *
-     * @param int $year  Year in YYYY format
-     * @param int $month Month in MM format
-     *
-     * @return \DateTime
+     * @inheritdoc
      */
     public function calculateSalaryPayday(int $year, int $month)
     {
@@ -46,12 +41,7 @@ class PaydayService
     }
 
     /**
-     * Calculates the pay day of the bonus for a given year and month
-     *
-     * @param int $year  Year in YYYY format
-     * @param int $month Month in MM format
-     *
-     * @return \DateTime
+     * @inheritdoc
      */
     public function calculateBonusPayday(int $year, int $month)
     {
