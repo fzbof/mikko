@@ -33,29 +33,43 @@ class PayrollService
      */
     public function createPayrollCalendar(\DateTime $referenceDay, $filename)
     {
+        $handle = fopen($filename, 'w');
+
         $remainingMonths = $this->calendarService->getRemainingMonths(
           $referenceDay
         );
 
-        $handle = fopen($filename, 'w', true);
         foreach ($remainingMonths as list($year, $month)) {
-            $salaryDay = $this->paydayService->calculateSalaryPayday(
-              $year,
-              $month
-            );
-            $bonusDay  = $this->paydayService->calculateBonusPayday(
-              $year,
-              $month
-            );
-
-            fputcsv(
-              $handle,
-              [
-                $month,
-                $salaryDay->format($this->csvFormat),
-                $bonusDay->format($this->csvFormat),
-              ]
-            );
+            $this->writePaydayLine($handle, $year, $month);
         }
+
+        fclose($handle);
+    }
+
+    /**
+     * @param resource $handle
+     * @param int      $year
+     * @param int      $month
+     */
+    private function writePaydayLine($handle, $year, $month)
+    {
+        $salaryDay = $this->paydayService->calculateSalaryPayday(
+          $year,
+          $month
+        );
+
+        $bonusDay = $this->paydayService->calculateBonusPayday(
+          $year,
+          $month
+        );
+
+        fputcsv(
+          $handle,
+          [
+            $month,
+            $salaryDay->format($this->csvFormat),
+            $bonusDay->format($this->csvFormat),
+          ]
+        );
     }
 }
